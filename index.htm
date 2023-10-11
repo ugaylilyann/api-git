@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>API JSON input and Output </title>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <!-- <script src="public/resource/datatables/datatables.min.js"></script> -->
+
+</head>
+
+<body>
+    <div id="nameCard" class="w3-container w3-padding-48">
+        <div class="w3-container w3-card w3-pale-blue w3-padding-16 w3-round-large"
+            style="width: 100%;">
+            
+            <div class="w3-half w3-padding w3-padding-16 w3-border-right">
+                <form id="addNameAPI" enctype="multipart/form-data" method="post">
+                    <header class="w3-container w3-padding-32 w3-xlarge">
+                        API Name Input and Display using JSON
+                    </header>
+                    <div class="w3-container w3-padding ">
+                        <div class="w3-half"><label for="fname">First Name</label></div>
+                        <div class="w3-half"><input type="text" name="fname" id="fname" class="w3-input w3-border"
+                                required></div>
+                    </div>
+                    <div class="w3-container w3-padding">
+                        <div class="w3-half"><label for="fname">Last Name</label></div>
+                        <div class="w3-half"><input type="text" name="lname" id="lname" class="w3-input w3-border"
+                                required></div>
+                    </div>
+                    <div class="w3-container w3-padding">
+                        <div class="w3-half w3-container">
+                            <button type="reset" class="w3-button w3-bar w3-blue w3-round-large">Reset</button>
+                        </div>
+                        <div class="w3-half w3-container">
+                            <button type="submit" class="w3-button w3-bar w3-green w3-round-large">Submit</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="w3-half w3-padding w3-padding-16">
+                <header class="w3-container w3-padding-32 w3-xlarge">
+                    Edit Profile
+                </header>
+                <div class="w3-container w3-padding ">
+                    <button type="button" id="search" class="w3-button w3-bar w3-blue w3-round-large">Search</button>
+                </div>
+                <form id="editNameAPI" enctype="multipart/form-data" method="post">
+                    <div class="w3-container w3-padding ">
+                        <div class="w3-half"><label for="fname">First Name</label></div>
+                        <div class="w3-half"><input type="text" name="upfname" id="upfname" class="w3-input w3-border"
+                                required></div>
+                    </div>
+                    <div class="w3-container w3-padding">
+                        <div class="w3-half"><label for="fname">Last Name</label></div>
+                        <div class="w3-half"><input type="text" name="uplname" id="uplname" class="w3-input w3-border"
+                                required></div>
+                    </div>
+                    <div class="w3-container w3-padding">
+                        <div class="w3-half w3-container">
+                            <button type="button" id="delete" class="w3-button w3-bar w3-red w3-round-large">Delete</button>
+                        </div>
+                        <div class="w3-half w3-container">
+                            <button type="button" id="update" class="w3-button w3-bar w3-green w3-round-large">Update</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="w3-container w3-padding w3-padding-16">
+                <header class="w3-container w3-padding-32 w3-xlarge">
+                    Names Inputed in Table form
+                </header>
+                <div class="w3-container">
+                    <table id="namesTable" class="w3-table">
+                        <thead class="w3-light-blue">
+                            <tr>
+                                <th>ID</th>
+                                <th>First Name</th>
+                                <th>Last Name</th>
+                            </tr>
+                        </thead>
+                        <tbody id="nameData">
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <footer class="w3-container w3-large w3-center">
+                <div class="w3-container w3-padding-16">
+                    Project Made by: Lily Ann M. Ugay - 4E
+                </div>
+                <div class="w3-container">
+                    &copy; Copyright 2023
+                </div>
+                <div class="w3-center w3-padding-16">
+                    <img src="public/img/Lily.png" alt="" style="width: 2em;">
+                </div>
+            </footer>
+        </div>
+
+    </div>
+
+    <div id="addSuccess" class="w3-modal w3-padding-64">
+        <div class="w3-modal-content w3-animate-zoom w3-card-4" style="width:40em">
+            <div class="w3-container w3-center w3-padding-32">
+                <div class="w3-panel">
+                    <span class="far fa-check-circle" style="font-size: 100px; color:green"></span>
+                </div>
+                <div class="w3-panel w3-xxlarge">Name Successfully Added</div>
+            </div>
+        </div>
+    </div>
+    <div id="addFailed" class="w3-modal w3-padding-64">
+        <div class="w3-modal-content w3-animate-zoom w3-card-4" style="width:40em">
+            <div class="w3-container w3-center w3-padding-32">
+                <div class="w3-panel"><span class="far fa-times-circle" style="font-size: 100px; color:red"></span>
+                </div>
+                <div class="w3-panel w3-xxlarge">Name Unable to Add</div>
+                <div class="w3-panel w3-large">Please Try Again</div>
+            </div>
+        </div>
+    </div>
+    <div id="upSuccess" class="w3-modal w3-padding-64">
+        <div class="w3-modal-content w3-animate-zoom w3-card-4" style="width:40em">
+            <div class="w3-container w3-center w3-padding-32">
+                <div class="w3-panel">
+                    <span class="far fa-check-circle" style="font-size: 100px; color:green"></span>
+                </div>
+                <div class="w3-panel w3-xxlarge">Name Successfully Updated</div>
+            </div>
+        </div>
+    </div>
+    <div id="upFailed" class="w3-modal w3-padding-64">
+        <div class="w3-modal-content w3-animate-zoom w3-card-4" style="width:40em">
+            <div class="w3-container w3-center w3-padding-32">
+                <div class="w3-panel"><span class="far fa-times-circle" style="font-size: 100px; color:red"></span>
+                </div>
+                <div class="w3-panel w3-xxlarge">Name Unable to Update</div>
+                <div class="w3-panel w3-large">Please Try Again</div>
+            </div>
+        </div>
+    </div>
+    <div id="delSuccess" class="w3-modal w3-padding-64">
+        <div class="w3-modal-content w3-animate-zoom w3-card-4" style="width:40em">
+            <div class="w3-container w3-center w3-padding-32">
+                <div class="w3-panel">
+                    <span class="far fa-check-circle" style="font-size: 100px; color:green"></span>
+                </div>
+                <div class="w3-panel w3-xxlarge">Name Successfully Deleted</div>
+            </div>
+        </div>
+    </div>
+    <div id="delFailed" class="w3-modal w3-padding-64">
+        <div class="w3-modal-content w3-animate-zoom w3-card-4" style="width:40em">
+            <div class="w3-container w3-center w3-padding-32">
+                <div class="w3-panel"><span class="far fa-times-circle" style="font-size: 100px; color:red"></span>
+                </div>
+                <div class="w3-panel w3-xxlarge">Name Unable to Delete</div>
+                <div class="w3-panel w3-large">Please Try Again</div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.7/css/all.css">
+    <link rel="stylesheet" href="public/resource/datatables/datatables.min.css">
+    <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Nunito'>
+    <link rel="stylesheet" href="public/css/main.css">
+    <link rel="stylesheet" href="public/css/w3.css">
+    <!-- JS -->
+    <script src="public/js/script.js"></script>
+    <script src="public/js/tables.js"></script>
+</body>
+
+</html>
